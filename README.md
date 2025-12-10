@@ -22,7 +22,7 @@ A simple GUI weather application that displays current weather information for a
 3. Activate the virtual environment: `.venv\Scripts\activate` (Windows)
 4. Install dependencies: `pip install requests customtkinter`
 5. Obtain an API key from [weatherapi.com](https://www.weatherapi.com/)
-6. Create `config.json` with your API key: `{"api_key": "your_key_here"}`
+6. Copy `config.example.json` to `config.json` and replace `"your_api_key_here"` with your actual API key
 7. Run the app: `python weather.py`
 
 ## API

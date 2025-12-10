@@ -126,4 +126,4 @@ dmypy.json
 Thumbs.db
 
 # Config files with API keys
-my.config.json
+config.json
