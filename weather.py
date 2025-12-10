@@ -1,6 +1,7 @@
 import json
 import requests
 import customtkinter as ctk
+import datetime as dt
 
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("dark-blue")
@@ -10,12 +11,13 @@ class WeatherApp(ctk.CTk):
         super().__init__()
         self.iconbitmap('weather.ico')
         self.title("Weather App")
-        self.geometry("280x220")
+        self.geometry("280x240")
         
         with open('config.json') as f:
             self.api_key = json.load(f)['api_key']
         
         self.zip_code = ""
+        self.last_update_time = None
         self.create_widgets()
         self.update_weather()
     
@@ -68,6 +70,10 @@ class WeatherApp(ctk.CTk):
         self.wind_label = ctk.CTkLabel(self.wind_frame, text="")
         self.wind_label.pack(side="left")
 
+        # Last update
+        self.last_update_label = ctk.CTkLabel(self, text="", font=("Arial", 10))
+        self.last_update_label.pack(pady=5)
+
         
     
     def fetch_weather(self):
@@ -98,18 +104,22 @@ class WeatherApp(ctk.CTk):
                     self.humidity_label.configure(text=f"{humidity}%", text_color="#00FFFF")
                     self.wind_label.configure(text=f"{wind} mph", text_color="#FF00FF")
                     self.name_label.configure(text=f"{data['location']['name']}", text_color="#F6FA00")
+                    self.last_update_time = dt.datetime.now()
+                    self.last_update_label.configure(text=f"Updated: {self.last_update_time.strftime('%I:%M %p').upper()}", text_color="gray")
                 else:
                     self.temp_label.configure(text="Invalid zip code", text_color="white")
                     self.weather_label.configure(text="", text_color="white")
                     self.humidity_label.configure(text="", text_color="white")
                     self.wind_label.configure(text="", text_color="white")
                     self.name_label.configure(text="", text_color="white")
+                    self.last_update_label.configure(text="", text_color="gray")
             except Exception as e:
                 self.temp_label.configure(text=f"{str(e)}", text_color="white")
                 self.weather_label.configure(text="", text_color="white")
                 self.humidity_label.configure(text="", text_color="white")
                 self.wind_label.configure(text="", text_color="white")
                 self.name_label.configure(text="", text_color="white")
+                self.last_update_label.configure(text="", text_color="gray")
         # Schedule next update in 3 minutes
         self.after(180000, self.update_weather)
 
