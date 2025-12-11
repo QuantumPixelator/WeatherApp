@@ -1,6 +1,7 @@
 import json
 import requests
 import customtkinter as ctk
+from datetime import datetime
 
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("dark-blue")
@@ -10,7 +11,7 @@ class WeatherApp(ctk.CTk):
         super().__init__()
         self.iconbitmap('weather.ico')
         self.title("Weather App")
-        self.geometry("280x220")
+        self.geometry("280x260")
         
         with open('config.json') as f:
             self.api_key = json.load(f)['api_key']
@@ -68,6 +69,14 @@ class WeatherApp(ctk.CTk):
         self.wind_label = ctk.CTkLabel(self.wind_frame, text="")
         self.wind_label.pack(side="left")
 
+        # Last Updated Time
+        self.time_frame = ctk.CTkFrame(self)
+        self.time_frame.pack(pady=5)
+        self.time_prefix = ctk.CTkLabel(self.time_frame, text="Last Updated: ")
+        self.time_prefix.pack(side="left")
+        self.time_label = ctk.CTkLabel(self.time_frame, text="")
+        self.time_label.pack(side="left")
+
         
     
     def fetch_weather(self):
@@ -87,6 +96,7 @@ class WeatherApp(ctk.CTk):
                     condition = current['condition']['text']
                     humidity = current['humidity']
                     wind = current['wind_mph']
+                    last_updated_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                     if temp <= 32:
                         color = "#155EE7"
                     elif temp >= 85:
@@ -98,6 +108,7 @@ class WeatherApp(ctk.CTk):
                     self.humidity_label.configure(text=f"{humidity}%", text_color="#00FFFF")
                     self.wind_label.configure(text=f"{wind} mph", text_color="#FF00FF")
                     self.name_label.configure(text=f"{data['location']['name']}", text_color="#F6FA00")
+                    self.time_label.configure(text=last_updated_time, text_color="#00FF7F")
                 else:
                     self.temp_label.configure(text="Invalid zip code", text_color="white")
                     self.weather_label.configure(text="", text_color="white")
