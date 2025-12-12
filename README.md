@@ -29,4 +29,4 @@ A simple GUI weather application that displays current weather information for a
 Uses weatherapi.com current weather API. API key must be stored in `config.json`.
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is provided under the IDGAF license - see the [LICENSE](LICENSE) file for details.
