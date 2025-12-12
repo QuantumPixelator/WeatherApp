@@ -120,8 +120,8 @@ class WeatherApp(ctk.CTk):
                 self.wind_label.configure(text="", text_color="white")
                 self.name_label.configure(text="", text_color="white")
                 self.last_update_label.configure(text="", text_color="gray")
-        # Schedule next update in 3 minutes
-        self.after(180000, self.update_weather)
+        # Schedule next update in 10 minutes
+        self.after(600000, self.update_weather)
 
 if __name__ == "__main__":
     app = WeatherApp()

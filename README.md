@@ -7,7 +7,7 @@ A simple GUI weather application that displays current weather information for a
 ## Features
 - Enter a zip code to get current weather
 - Displays temperature in Fahrenheit (color-coded: blue ≤32°F, green 33-84°F, red ≥85°F), weather condition (orange), humidity (cyan), wind speed (magenta), and location (yellow)
-- Updates automatically every 3 minutes
+- Updates automatically every 10 minutes
 - Dark theme with custom icon
 - Colorful, easy-to-read interface
 
